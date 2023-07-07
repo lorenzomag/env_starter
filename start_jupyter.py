@@ -213,7 +213,14 @@ def main():
 
     if args.env == 'singularity':
         s_container = 'xenonnt-%s.simg' % args.tag
+        # If on midway3, we need to set the INSTALL_CUTAX variable because the singularity there is not 
+        # reading env variables correctly
+        if on_midway3 and args.local_cutax:
+            export_install_cutax = "\nexport INSTALL_CUTAX=0\n"
+        else:
+            export_install_cutax = ""
         batch_job = JOB_HEADER + \
+                    export_install_cutax + \
                     "{env_starter}/{script} " \
                     "{s_container} {jupyter} {nbook_dir}".format(env_starter=ENVSTARTER_PATH,
                                                                  script=SHELL_SCRIPT[args.partition],
