@@ -222,8 +222,6 @@ def main():
                                                                  nbook_dir=args.notebook_dir,
                                                                  )
     elif args.env == 'cvmfs':
-        if args.partition == 'lgrandi':
-            raise Exception("Only singularity is supported on Midway3")
         batch_job = (JOB_HEADER
                      + "source /cvmfs/xenon.opensciencegrid.org/releases/nT/%s/setup.sh" % (args.tag)
                      + START_JUPYTER.format(jupyter=args.jupyter,
